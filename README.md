@@ -1,2 +1,1 @@
-# fp-in-java
-Functional Programming in Java
+# Functional Programming in Java
