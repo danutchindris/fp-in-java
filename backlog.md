@@ -13,3 +13,6 @@
 - functions as data
     - anonymous functions
 - Streams
+    - laziness
+- method references
+- write functional interfaces
