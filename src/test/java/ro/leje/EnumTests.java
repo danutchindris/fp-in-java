@@ -7,15 +7,28 @@ import ro.leje.collection.Enum;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Immutable data structure
+ */
 class Student {
-    String name;
-    int age;
+
+    private final String name;
+    private final int age;
 
     public Student(String name, int age) {
         this.name = name;
         this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     @Override
@@ -34,6 +47,11 @@ class Student {
     public int hashCode() {
         return Objects.hash(name, age);
     }
+
+    @Override
+    public String toString() {
+        return name + " " + age;
+    }
 }
 
 public class EnumTests {
@@ -42,23 +60,23 @@ public class EnumTests {
     void testEach() {
         List<Integer> list = Arrays.asList(1, 2, 4, 2);
         List<Integer> original = new ArrayList<>(list);
-        Enum.each(list, x -> {
-            System.out.println(x);
-            // TODO improve the function return type so that we're not forced to return null
-            //  at the moment the situation is like this because the return type is Void
-            return null;
-        });
+        Enum.each(list, x -> System.out.println(x));
     }
 
     @Test
     void testEachDoesNotModifyElements() {
-        List<Student> list = Arrays.asList(new Student("Ionel", 20), new Student("Ana", 21));
-        List<Student> original = Arrays.asList(new Student("Ionel", 20), new Student("Ana", 21));
-        Enum.each(list, x -> {
-            // TODO how can we make sure that the function we pass to each() doesn't change the list at all?
-            x.age += 1;
-            return null;
-        });
+        final List<Student> list = Arrays.asList(new Student("Ionel", 20), new Student("Ana", 21));
+        final List<Student> original = Arrays.asList(new Student("Ionel", 20), new Student("Ana", 21));
+        Enum.each(list, element -> System.out.println(element));
         Assertions.assertIterableEquals(original, list);
+    }
+
+    @Test
+    void testMap() {
+        final Map<Integer, Student> students = Map.of(
+                1, new Student("Ionel", 20),
+                2, new Student("Ana", 21)
+        );
+        Enum.each(students.entrySet(), x -> System.out.println(x.getValue().getName()));
     }
 }

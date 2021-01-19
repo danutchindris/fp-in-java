@@ -1,8 +1,6 @@
 package ro.leje.collection;
 
-import ro.leje.function.Function;
-
-import java.util.List;
+import ro.leje.function.Consumer;
 
 /**
  * The Enum class contains utility methods which are higher-order functions.
@@ -22,9 +20,9 @@ public class Enum {
      * @param f    The function we want to apply to each element in the list
      * @param <T>  The elements we work with are of a generic type
      */
-    public static <T> void each(final List<T> list, Function<T, Void> f) {
+    public static <T> void each(final Iterable<T> list, final Consumer<T> f) {
         for (T element : list) {
-            f.apply(element);
+            f.consume(element);
         }
     }
 
