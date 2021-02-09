@@ -3,56 +3,15 @@ package ro.leje;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ro.leje.collection.Enum;
+import ro.leje.model.Student;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-/**
- * Immutable data structure
- */
-class Student {
-
-    private final String name;
-    private final int age;
-
-    public Student(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Student student = (Student) o;
-        return age == student.age && Objects.equals(name, student.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, age);
-    }
-
-    @Override
-    public String toString() {
-        return name + " " + age;
-    }
-}
+import java.util.Set;
 
 public class EnumTests {
 
@@ -78,5 +37,23 @@ public class EnumTests {
                 2, new Student("Ana", 21)
         );
         Enum.each(students.entrySet(), x -> System.out.println(x.getValue().getName()));
+    }
+
+    @Test
+    void testMapMethod() {
+        var list = Enum.map(
+                List.of(new Student("Ionel", 20), new Student("Ana", 21)),
+                student -> student.getName()
+        );
+        Assertions.assertIterableEquals(List.of("Ionel", "Ana"), list);
+    }
+
+    @Test
+    void testMapMethodWithSet() {
+        var returnedIterable = Enum.map(
+                new LinkedHashSet<>(List.of(new Student("Ionel", 20), new Student("Ana", 21))),
+                student -> student.getName()
+        );
+        Assertions.assertIterableEquals(List.of("Ionel", "Ana"), returnedIterable);
     }
 }

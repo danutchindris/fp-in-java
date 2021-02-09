@@ -1,6 +1,10 @@
 package ro.leje.collection;
 
 import ro.leje.function.Consumer;
+import ro.leje.function.Function;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Enum class contains utility methods which are higher-order functions.
@@ -26,7 +30,22 @@ public class Enum {
         }
     }
 
-    // TODO: map
+    /**
+     *
+     * @param iterable
+     * @param function
+     * @param <T>
+     * @param <R>
+     * @return An ordered iterable
+     */
+    public static <T, R> Iterable<R> map(final Iterable<T> iterable, final Function<T, R> function) {
+        final List<R> newIterable = new ArrayList<>();
+        for (T element : iterable) {
+            newIterable.add(function.apply(element));
+        }
+        return newIterable;
+    }
+
     // TODO: filter
     // TODO: reduce
 }
