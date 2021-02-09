@@ -2,6 +2,7 @@ package ro.leje.collection;
 
 import ro.leje.function.Consumer;
 import ro.leje.function.Function;
+import ro.leje.function.Predicate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,15 @@ public class Enum {
         return newIterable;
     }
 
-    // TODO: filter
+    public static <T> Iterable<T> filter(final Iterable<T> iterable, final Predicate<T> predicate) {
+        List<T> newIterable = new ArrayList<>();
+        for (T element : iterable) {
+            if (predicate.test(element)) {
+                newIterable.add(element);
+            }
+        }
+        return newIterable;
+    }
+
     // TODO: reduce
 }

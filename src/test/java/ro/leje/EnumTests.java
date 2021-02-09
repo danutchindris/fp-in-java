@@ -56,4 +56,39 @@ public class EnumTests {
         );
         Assertions.assertIterableEquals(List.of("Ionel", "Ana"), returnedIterable);
     }
+
+    @Test
+    void testFilterMethodReturningEvenNumbers() {
+        var returnedNumbers = Enum.filter(
+                List.of(6, 9, 12, 44, 21, 10, 33),
+                number -> number % 2 == 0
+        );
+        Assertions.assertIterableEquals(List.of(6, 12, 21, 44, 10), returnedNumbers);
+    }
+
+    @Test
+    void testFilterMethodWithHashSets() {
+        var firstHashSet = new HashSet<Integer>();
+        firstHashSet.add(2);
+        firstHashSet.add(6);
+        firstHashSet.add(7);
+        firstHashSet.add(9);
+
+        var secondHashSet = new HashSet<Integer>();
+        secondHashSet.add(7);
+        secondHashSet.add(2);
+        secondHashSet.add(9);
+        secondHashSet.add(6);
+
+        Assertions.assertIterableEquals(firstHashSet, secondHashSet);
+    }
+
+    @Test
+    void testEqualsLists() {
+        var firstList = List.of(2, 6, 7, 9);
+
+        var secondList = List.of(7, 9, 2, 6);
+
+        Assertions.assertIterableEquals(firstList, secondList);
+    }
 }
