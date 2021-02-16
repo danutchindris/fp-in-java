@@ -1,5 +1,6 @@
 package ro.leje.collection;
 
+import ro.leje.function.BiFunction;
 import ro.leje.function.Consumer;
 import ro.leje.function.Function;
 import ro.leje.function.Predicate;
@@ -32,7 +33,6 @@ public class Enum {
     }
 
     /**
-     *
      * @param iterable
      * @param function
      * @param <T>
@@ -57,5 +57,11 @@ public class Enum {
         return newIterable;
     }
 
-    // TODO: reduce
+    public static <T, R> R reduce(final Iterable<T> iterable, final R zero, final BiFunction<T, R, R> function) {
+        R accumulator = zero;
+        for (T element : iterable) {
+            accumulator = function.apply(element, accumulator);
+        }
+        return accumulator;
+    }
 }

@@ -91,4 +91,36 @@ public class EnumTests {
 
         Assertions.assertIterableEquals(firstList, secondList);
     }
+
+    @Test
+    void testSumWithReduceFunction() {
+        var list = List.of(1, 2, 5, 6, 9);
+        var result = Enum.reduce(list, 0, (nr, acc) -> nr + acc);
+
+        Assertions.assertEquals(23, result);
+    }
+
+    @Test
+    void testProductWithReduceFunction() {
+        var list = List.of(1, 2, 5, 6, 9);
+        var result = Enum.reduce(list, 1, (nr, acc) -> nr * acc);
+
+        Assertions.assertEquals(540, result);
+    }
+
+    @Test
+    void testConcatenationWithReduceFunction() {
+        var list = List.of("1", "2", "5", "6", "9");
+        var result = Enum.reduce(list, "", (str, acc) -> acc + str);
+
+        Assertions.assertEquals("12569", result);
+    }
+
+    @Test
+    void testEmptyListWithReduceFunction() {
+        List<Integer> list = List.of();
+        var result = Enum.reduce(list, 0, (nr, acc) -> nr + acc);
+
+        Assertions.assertEquals(0, result);
+    }
 }
